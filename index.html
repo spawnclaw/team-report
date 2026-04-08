@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>团队成员工作能力评估报告</title>
 <style>
+#lock-screen {
+  position:fixed;inset:0;background:#f5f0e8;z-index:9999;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+}
+#lock-screen input {
+  padding:10px 16px;font-size:16px;border:2px solid #d6cec4;border-radius:8px;
+  background:#fff;color:#2d2b28;text-align:center;width:200px;outline:none;
+}
+#lock-screen input:focus { border-color:#c96442; }
+#lock-screen .lock-title { font-size:14px;color:#8b8580;margin-bottom:12px; }
+#lock-screen .lock-err { color:#c25a4a;font-size:12px;margin-top:8px;height:16px; }
+.content-hidden { display:none !important; }
 :root {
   --bg: #f5f0e8;
   --bg2: #ffffff;
@@ -1535,5 +1547,33 @@ strong { color: #2d2b28; }
 </div>
 
 </div>
+<div id="lock-screen">
+<div class="lock-title">请输入访问密码</div>
+<input type="password" id="pw" placeholder="密码" autofocus>
+<div class="lock-err" id="err"></div>
+</div>
+<script>
+(function(){
+  var h='30b40b72d5d584fa99336e5b7eb5d142e638c6abed0954953668dd77a75f2cc8';
+  var c=document.querySelector('.container');
+  if(c)c.classList.add('content-hidden');
+  var inp=document.getElementById('pw');
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){
+      var v=inp.value;
+      crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(buf){
+        var ha=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+        if(ha===h){
+          document.getElementById('lock-screen').style.display='none';
+          if(c)c.classList.remove('content-hidden');
+        }else{
+          document.getElementById('err').textContent='密码错误';
+          inp.value='';
+        }
+      });
+    }
+  });
+})();
+</script>
 </body>
 </html>
