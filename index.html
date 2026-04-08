@@ -15,6 +15,11 @@
 }
 #lock-screen input:focus { border-color:#c96442; }
 #lock-screen .lock-title { font-size:14px;color:#8b8580;margin-bottom:12px; }
+#lock-screen button {
+  margin-top:10px;padding:8px 32px;font-size:14px;border:none;border-radius:8px;
+  background:#c96442;color:#fff;cursor:pointer;
+}
+#lock-screen button:hover { background:#b05535; }
 #lock-screen .lock-err { color:#c25a4a;font-size:12px;margin-top:8px;height:16px; }
 .content-hidden { display:none !important; }
 :root {
@@ -1550,30 +1555,27 @@ strong { color: #2d2b28; }
 <div id="lock-screen">
 <div class="lock-title">请输入访问密码</div>
 <input type="password" id="pw" placeholder="密码" autofocus>
+<button id="pw-btn" onclick="checkPw()">进入</button>
 <div class="lock-err" id="err"></div>
 </div>
 <script>
-(function(){
-  var h='30b40b72d5d584fa99336e5b7eb5d142e638c6abed0954953668dd77a75f2cc8';
-  var c=document.querySelector('.container');
-  if(c)c.classList.add('content-hidden');
-  var inp=document.getElementById('pw');
-  inp.addEventListener('keydown',function(e){
-    if(e.key==='Enter'){
-      var v=inp.value;
-      crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(buf){
-        var ha=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-        if(ha===h){
-          document.getElementById('lock-screen').style.display='none';
-          if(c)c.classList.remove('content-hidden');
-        }else{
-          document.getElementById('err').textContent='密码错误';
-          inp.value='';
-        }
-      });
+var _h='30b40b72d5d584fa99336e5b7eb5d142e638c6abed0954953668dd77a75f2cc8';
+var _c=document.querySelector('.container');
+if(_c)_c.classList.add('content-hidden');
+function checkPw(){
+  var v=document.getElementById('pw').value;
+  crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(buf){
+    var ha=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+    if(ha===_h){
+      document.getElementById('lock-screen').style.display='none';
+      if(_c)_c.classList.remove('content-hidden');
+    }else{
+      document.getElementById('err').textContent='密码错误';
+      document.getElementById('pw').value='';
     }
   });
-})();
+}
+document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
 </script>
 </body>
 </html>
