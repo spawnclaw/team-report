@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>团队成员工作能力评估报告</title>
+<style>
+:root {
+  --bg: #f5f0e8;
+  --bg2: #ffffff;
+  --bg3: #e8e0d4;
+  --text: #2d2b28;
+  --text-dim: #8b8580;
+  --accent: #c96442;
+  --green: #5a8a6a;
+  --yellow: #b8963e;
+  --red: #c25a4a;
+  --gold: #a07838;
+  --blue: #6b7b94;
+  --border: #d6cec4;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+  line-height: 1.6;
+  padding: 0;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 20px 30px 60px; }
+.report-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.report-header h1 {
+  font-size: 2.4em;
+  font-weight: 700;
+  color: #2d2b28;
+  margin-bottom: 20px;
+}
+.report-header .meta {
+  color: var(--text-dim);
+  font-size: 0.95em;
+  line-height: 1.8;
+}
+.report-header .meta strong { color: var(--text); }
+
+h2 {
+  font-size: 1.6em;
+  color: var(--accent);
+  margin: 50px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--bg3);
+}
+h3 { font-size: 1.2em; color: #6b5b4f; margin: 30px 0 15px; }
+h4 { font-size: 1.1em; color: var(--text); margin: 20px 0 10px; }
+
+.note {
+  background: var(--bg2);
+  border-left: 4px solid var(--accent);
+  padding: 8px 14px;
+  margin: 15px 0;
+  color: var(--text-dim);
+  font-size: 0.75em;
+  border-radius: 0 6px 6px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 18px;
+  font-size: 0.82em;
+}
+th, td {
+  padding: 5px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82em;
+}
+th {
+  background: var(--bg3);
+  color: var(--accent);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+tr:hover { background: rgba(201,100,66,0.05); }
+td { color: var(--text); }
+.tbl-scroll { overflow: hidden; position: relative; }
+
+/* Column highlight on hover */
+td, th { position: relative; }
+td:hover::after {
+  content: '';
+  position: absolute;
+  left: 0; top: -5000px;
+  width: 100%; height: 10000px;
+  background: rgba(201,100,66,0.06);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Player Card */
+.player-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border-radius: 12px;
+  margin: 25px 0;
+  overflow: hidden;
+}
+.card-top {
+  display: flex;
+  align-items: stretch;
+  padding: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.card-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid var(--bg3);
+  flex-shrink: 0;
+}
+.card-initials {
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  border: 2px solid var(--bg3);
+}
+.card-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 180px;
+}
+.card-rank {
+  font-size: 0.85em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.card-rank span { font-weight: 700; color: var(--accent); font-size: 1.3em; }
+.card-score {
+  font-size: 2.8em;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.score-green { color: var(--green); }
+.score-yellow { color: var(--yellow); }
+.score-red { color: var(--red); }
+.card-salary {
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+.card-salary strong { color: var(--text); }
+.card-sub-scores {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: var(--text-dim);
+}
+.card-sub-scores span { }
+.card-sub-scores strong { font-size: 1.6em; font-weight: 800; }
+
+.card-bars {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bar-label {
+  width: 70px;
+  text-align: right;
+  font-size: 0.78em;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.bar-track {
+  flex: 1;
+  height: 14px;
+  background: var(--bg);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 7px;
+  transition: width 0.3s;
+}
+.bar-fill-green { background: linear-gradient(90deg, #5a8a6a, #7aaa8a); }
+.bar-fill-yellow { background: linear-gradient(90deg, #b8963e, #d4b060); }
+.bar-fill-red { background: linear-gradient(90deg, #c25a4a, #d87a6a); }
+.bar-value {
+  width: 30px;
+  text-align: right;
+  font-size: 0.78em;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.card-bottom {
+  padding: 0 20px 20px;
+}
+.card-role {
+  display: inline-block;
+  background: rgba(107,123,148,0.12);
+  color: var(--blue);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.82em;
+  margin-bottom: 6px;
+}
+.card-value {
+  display: inline-block;
+  background: rgba(160,120,56,0.10);
+  color: var(--gold);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.82em;
+  margin-bottom: 10px;
+  margin-left: 6px;
+}
+.card-eval {
+  color: var(--text);
+  font-size: 0.9em;
+  line-height: 1.7;
+}
+.card-eval strong { color: #2d2b28; }
+
+ul { margin: 10px 0 10px 24px; }
+li { margin-bottom: 6px; color: var(--text); font-size: 0.92em; }
+p { margin: 8px 0; font-size: 0.93em; }
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* Manager eval section */
+.eval-section { margin: 25px 0; }
+.eval-section h4 { border-bottom: 1px solid var(--bg3); padding-bottom: 6px; }
+.eval-block {
+  background: var(--bg2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.eval-block h5 { color: var(--accent); margin-bottom: 8px; font-size: 0.95em; }
+
+.highlight { color: var(--gold); font-weight: 600; }
+strong { color: #2d2b28; }
+
+.footer-note {
+  margin-top: 50px;
+  padding: 20px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.85em;
+  font-style: italic;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .card-top { flex-direction: column; align-items: center; text-align: center; }
+  .bar-label { width: 55px; }
+  .container { padding: 10px 12px 40px; }
+  table { font-size: 0.78em; }
+  th, td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="report-header">
+<h1>团队成员工作能力评估报告</h1>
+<div class="meta">
+<strong>评估周期</strong>: 2025年4月 &mdash; 2026年4月（12个月）<br>
+<strong>数据来源</strong>: Jira (ATH/ARTT/ARES) + GitHub (19 repos) + 简历 (13份) + 自评与主管评价 (7份)<br>
+<strong>评估人数</strong>: 13名核心开发成员<br>
+<strong>生成日期</strong>: 2026-04-08
+</div>
+</div>
+
+<!-- ======== 一、评估结果 ======== -->
+<h2>一、评估结果</h2>
+<h3>综合排名</h3>
+<div class="note">自评分、主管分、月薪为参考信息，<strong>不计入综合分，不影响排名</strong>。Duy和Ryan为主管，不被评。月薪单位为SGD（2026年1月数据）。无薪资记录的标记为"离职"。</div>
+
+<div class="tbl-scroll">
+<table>
+<thead>
+<tr><th>排名</th><th>姓名</th><th>综合分</th><th>产出</th><th>难度</th><th>效率</th><th>强度</th><th>稳定产出</th><th>简历评估</th><th>代码贡献</th><th>自评</th><th>主管评价</th><th>月薪</th><th>角色定位</th><th>性价比评价</th></tr>
+</thead>
+<tbody>
+<tr><td style="color:var(--red);font-weight:600">1</td><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">62.7</strong></td><td style="color:var(--green);font-weight:600">72</td><td style="color:var(--red);font-weight:600">37</td><td style="color:var(--green);font-weight:600">92</td><td style="color:var(--green);font-weight:600">96</td><td style="color:var(--yellow);font-weight:600">64</td><td style="color:var(--yellow);font-weight:600">58</td><td style="color:var(--red);font-weight:600">19</td><td style="color:var(--green);font-weight:600">85</td><td style="color:var(--green);font-weight:600">80</td><td>4,500</td><td>救火队长, Jira全面领先</td><td><strong>核心资产</strong>: 中等薪资却综合分最高, 团队性价比标杆</td></tr>
+<tr><td style="color:var(--red);font-weight:600">2</td><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">58.3</strong></td><td style="color:var(--green);font-weight:600">100</td><td style="color:var(--red);font-weight:600">15</td><td style="color:var(--green);font-weight:600">100</td><td style="color:var(--red);font-weight:600">43</td><td style="color:var(--green);font-weight:600">81</td><td style="color:var(--red);font-weight:600">42</td><td style="color:var(--red);font-weight:600">7</td><td>-</td><td>-</td><td>离职</td><td>效率之王, GitHub产出极低</td><td><strong>已离职/高效低复杂度</strong>: Jira效率满分但任务70%是Task+GitHub仅9 PRs, 本质是DevOps运维角色而非开发者, 离职后该岗位可由自动化工具部分替代</td></tr>
+<tr><td style="color:var(--red);font-weight:600">3</td><td style="font-weight:700;font-size:0.95em">Van Tu Le</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">56.1</strong></td><td style="color:var(--yellow);font-weight:600">47</td><td style="color:var(--yellow);font-weight:600">45</td><td style="color:var(--green);font-weight:600">71</td><td style="color:var(--green);font-weight:600">72</td><td style="color:var(--yellow);font-weight:600">66</td><td style="color:var(--green);font-weight:600">72</td><td style="color:var(--red);font-weight:600">27</td><td style="color:var(--green);font-weight:600">82</td><td style="color:var(--green);font-weight:600">72</td><td>5,100</td><td>全面型, 但0 PR需关注</td><td><strong>高潜力</strong>: 入职5月即全面产出, 薪资合理, 但0 PR是定时炸弹</td></tr>
+<tr><td style="color:var(--red);font-weight:600">4</td><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">54.7</strong></td><td style="color:var(--red);font-weight:600">31</td><td style="color:var(--yellow);font-weight:600">58</td><td style="color:var(--green);font-weight:600">75</td><td style="color:var(--red);font-weight:600">37</td><td style="color:var(--yellow);font-weight:600">53</td><td style="color:var(--green);font-weight:600">78</td><td style="color:var(--yellow);font-weight:600">50</td><td style="color:var(--yellow);font-weight:600">65</td><td style="color:var(--yellow);font-weight:600">55</td><td>5,351</td><td>基础设施专家, 沟通待改善</td><td><strong>技术资产/协作负债</strong>: 技术值这个价, 但silo工作方式拖累团队</td></tr>
+<tr><td style="color:var(--red);font-weight:600">5</td><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">52.0</strong></td><td style="color:var(--red);font-weight:600">22</td><td style="color:var(--yellow);font-weight:600">47</td><td style="color:var(--yellow);font-weight:600">69</td><td style="color:var(--red);font-weight:600">25</td><td style="color:var(--yellow);font-weight:600">64</td><td style="color:var(--green);font-weight:600">92</td><td style="color:var(--yellow);font-weight:600">49</td><td>-</td><td>-</td><td>11,200</td><td>Tech Lead (主管)</td><td><strong>最高薪需匹配领导力</strong>: review 92%橡皮章, 需从"批准者"变为"质量守门人"</td></tr>
+<tr><td style="color:var(--red);font-weight:600">6</td><td style="font-weight:700;font-size:0.95em">Ngoc Quang Nguyen</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">47.9</strong></td><td style="color:var(--red);font-weight:600">41</td><td style="color:var(--red);font-weight:600">40</td><td style="color:var(--green);font-weight:600">72</td><td style="color:var(--red);font-weight:600">42</td><td style="color:var(--red);font-weight:600">44</td><td style="color:var(--yellow);font-weight:600">48</td><td style="color:var(--red);font-weight:600">42</td><td style="color:var(--green);font-weight:600">75</td><td style="color:var(--green);font-weight:600">82</td><td>2,808</td><td>PR最多, 成长快</td><td><strong>超值引擎</strong>: 全团队最低薪却是PR最活跃+第三reviewer, 应加薪留人</td></tr>
+<tr><td style="color:var(--red);font-weight:600">7</td><td style="font-weight:700;font-size:0.95em">Duy Minh Phung</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">46.1</strong></td><td style="color:var(--red);font-weight:600">14</td><td style="color:var(--red);font-weight:600">39</td><td style="color:var(--yellow);font-weight:600">64</td><td style="color:var(--red);font-weight:600">24</td><td style="color:var(--yellow);font-weight:600">67</td><td style="color:var(--green);font-weight:600">85</td><td style="color:var(--red);font-weight:600">37</td><td>-</td><td>-</td><td>6,120</td><td>产品灵魂 (主管)</td><td><strong>不可替代但需重新定位</strong>: 7年产品积累无人能替, 但以IC标准衡量性价比偏低, 应明确管理岗考核</td></tr>
+<tr><td style="color:var(--red);font-weight:600">8</td><td style="font-weight:700;font-size:0.95em">Ka An Chong</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--yellow);font-size:1.1em">45.3</strong></td><td style="color:var(--red);font-weight:600">19</td><td style="color:var(--yellow);font-weight:600">69</td><td style="color:var(--yellow);font-weight:600">47</td><td style="color:var(--red);font-weight:600">28</td><td style="color:var(--yellow);font-weight:600">55</td><td style="color:var(--yellow);font-weight:600">68</td><td style="color:var(--red);font-weight:600">38</td><td style="color:var(--green);font-weight:600">85</td><td style="color:var(--yellow);font-weight:600">60</td><td>7,500</td><td>Feature开发, 主动性不足</td><td><strong>高薪低效, 团队性价比最差</strong>: 第二高薪但完成率最低(78%)+主管说slow/less initiative+review 1%实质率+自评与主管差25分, 典型老白兔</td></tr>
+<tr><td style="color:var(--red);font-weight:600">9</td><td style="font-weight:700;font-size:0.95em">Thobias Pieter</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">42.6</strong></td><td style="color:var(--red);font-weight:600">40</td><td style="color:var(--yellow);font-weight:600">45</td><td style="color:var(--yellow);font-weight:600">66</td><td style="color:var(--yellow);font-weight:600">60</td><td style="color:var(--red);font-weight:600">40</td><td style="color:var(--red);font-weight:600">28</td><td style="color:var(--red);font-weight:600">17</td><td style="color:var(--yellow);font-weight:600">55</td><td style="color:var(--yellow);font-weight:600">55</td><td>3,500</td><td>成长奇迹, 仍需指导</td><td><strong>低薪成长型</strong>: 薪资匹配当前能力, 零经验到独立做事, 性价比合理</td></tr>
+<tr><td style="color:var(--red);font-weight:600">10</td><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">39.8</strong></td><td style="color:var(--red);font-weight:600">17</td><td style="color:var(--red);font-weight:600">39</td><td style="color:var(--yellow);font-weight:600">55</td><td style="color:var(--red);font-weight:600">13</td><td style="color:var(--yellow);font-weight:600">66</td><td style="color:var(--yellow);font-weight:600">55</td><td style="color:var(--red);font-weight:600">37</td><td>-</td><td>-</td><td>离职</td><td>Review质量最高</td><td><strong>已离职/最可惜的流失</strong>: 完成率97%+积压仅6条+review 93%实质率(全团队最高)+158 PRs, 入职9个月已是团队工程规范标杆, 这是最不该走的人</td></tr>
+<tr><td style="color:var(--red);font-weight:600">11</td><td style="font-weight:700;font-size:0.95em">Huy Vuong Do Thanh</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">39.5</strong></td><td style="color:var(--red);font-weight:600">15</td><td style="color:var(--yellow);font-weight:600">64</td><td style="color:var(--red);font-weight:600">34</td><td style="color:var(--red);font-weight:600">20</td><td style="color:var(--red);font-weight:600">43</td><td style="color:var(--green);font-weight:600">75</td><td style="color:var(--red);font-weight:600">34</td><td style="color:var(--green);font-weight:600">82</td><td style="color:var(--green);font-weight:600">78</td><td>3,088</td><td>前端专家, 主动性待提升</td><td><strong>被低估的专家</strong>: 10年FE经验+PR合并率96%(最高), 薪资仅3K, 有流失风险, 应加薪</td></tr>
+<tr><td style="color:var(--red);font-weight:600">12</td><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">37.4</strong></td><td style="color:var(--red);font-weight:600">0</td><td style="color:var(--green);font-weight:600">82</td><td style="color:var(--red);font-weight:600">25</td><td style="color:var(--red);font-weight:600">23</td><td style="color:var(--yellow);font-weight:600">50</td><td style="color:var(--green);font-weight:600">82</td><td style="color:var(--red);font-weight:600">18</td><td style="color:var(--green);font-weight:600">80</td><td style="color:var(--green);font-weight:600">70</td><td>3,351</td><td>强背景, 过度设计倾向</td><td><strong>观察期</strong>: 10年经验+3.3K薪资本身不贵, 但月均4.3条(最低)+过度设计, 半年后再评</td></tr>
+<tr><td style="color:var(--red);font-weight:600">13</td><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">34.3</strong></td><td style="color:var(--yellow);font-weight:600">48</td><td style="color:var(--yellow);font-weight:600">45</td><td style="color:var(--red);font-weight:600">0</td><td style="color:var(--red);font-weight:600">42</td><td style="color:var(--red);font-weight:600">13</td><td style="color:var(--yellow);font-weight:600">65</td><td style="color:var(--red);font-weight:600">32</td><td>-</td><td>-</td><td>离职</td><td>交付节奏失控</td><td><strong>已离职/走了不亏</strong>: P50=41天(最慢)+P90=245天+积压36条(最多)+月度CV=0.95(最不稳定), 4.5年未建立交付纪律, PR合并率95%说明能写代码但不能按时交付, 入职前每段工作&lt;1年也印证了持续性问题</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>成员综合评价</h3>
+
+<div class="player-card">
+<div class="card-top">
+<img class="card-photo" src="data:image/jpeg;base64,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" alt="Gunawan Swandono">
+<div class="card-center">
+  <div class="card-rank"><span>#1</span> Gunawan Swandono</div>
+  <div class="card-score score-green">62.7</div>
+  <div class="card-salary">月薪: <strong>4,500</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--green)">85</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--green)">80</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:72%"></div></div>
+  <div class="bar-value" style="color:var(--green)">72</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:37%"></div></div>
+  <div class="bar-value" style="color:var(--red)">37</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:92%"></div></div>
+  <div class="bar-value" style="color:var(--green)">92</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:96%"></div></div>
+  <div class="bar-value" style="color:var(--green)">96</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:64%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">64</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:58%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">58</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:19%"></div></div>
+  <div class="bar-value" style="color:var(--red)">19</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">救火队长, Jira全面领先</span>
+<span class="card-value">核心资产: 中等薪资却综合分最高, 团队性价比标杆</span>
+<div class="card-eval">Jira全面领先（产出12.7/月, P50=6天, 完成率96%），Hotfix P50=2.7天证明生产问题诊断能力极强。GitHub review虽只有25次但76%有实质内容。两位主管对他评价一致正面: 端到端理解系统、能解决复杂问题(race condition/slow query)、好沟通、好态度。唯一不足是"修复有时只针对具体case不考虑整体设计"。<strong>用实际产出证明能力的开发者，自评与数据高度吻合。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #b8a898, #a09080)">ZT</div>
+<div class="card-center">
+  <div class="card-rank"><span>#2</span> Zack Tang</div>
+  <div class="card-score score-green">58.3</div>
+  <div class="card-salary">月薪: <strong>离职</strong> SGD</div>
+  
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:100%"></div></div>
+  <div class="bar-value" style="color:var(--green)">100</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:15%"></div></div>
+  <div class="bar-value" style="color:var(--red)">15</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:100%"></div></div>
+  <div class="bar-value" style="color:var(--green)">100</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:43%"></div></div>
+  <div class="bar-value" style="color:var(--red)">43</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:81%"></div></div>
+  <div class="bar-value" style="color:var(--green)">81</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:42%"></div></div>
+  <div class="bar-value" style="color:var(--red)">42</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:7%"></div></div>
+  <div class="bar-value" style="color:var(--red)">7</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">效率之王, GitHub产出极低</span>
+<span class="card-value">已离职/高效低复杂度: Jira效率满分但任务70%是Task+GitHub仅9 PRs</span>
+<div class="card-eval">Jira产出和效率两项满分，积压仅4条。但GitHub(115 commits/9 PRs)证实工作主要是DevOps/基础设施，不涉及核心代码。无自评和主管评价数据。任务70% Task, 难度分15(最低), GitHub分7(最低)。<strong>高效执行者，但工作复杂度低。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #a8b0a0, #90a090)">VT</div>
+<div class="card-center">
+  <div class="card-rank"><span>#3</span> Van Tu Le</div>
+  <div class="card-score score-green">56.1</div>
+  <div class="card-salary">月薪: <strong>5,100</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--green)">82</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--green)">72</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:47%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">47</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:45%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">45</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:71%"></div></div>
+  <div class="bar-value" style="color:var(--green)">71</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:72%"></div></div>
+  <div class="bar-value" style="color:var(--green)">72</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:66%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">66</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:72%"></div></div>
+  <div class="bar-value" style="color:var(--green)">72</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:27%"></div></div>
+  <div class="bar-value" style="color:var(--red)">27</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">全面型, 但0 PR需关注</span>
+<span class="card-value">高潜力: 入职5月即全面产出, 薪资合理, 但0 PR是定时炸弹</span>
+<div class="card-eval">入职仅5个月，Jira六维最均衡（无低于45的维度）。自评写得非常结构化（Role/Contributions/Ownership/Impact/Goals），展现出强主人翁意识。但GitHub暴露严重问题: <strong>750 commits / 0 PRs</strong>。主管Duy指出"方案有时过于复杂不易review"; Ryan肯定Java能力和团队精神，但指出FE经验和英语沟通不足。<strong>全面型能力强，但必须尽快纳入PR流程。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<img class="card-photo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABHAAD/4QB0RXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAABIAAAAAQAAAEcAAAABAAKgAgAEAAAAAQAAAKCgAwAEAAAAAQAAAMgAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/iEaxJQ0NfUFJPRklMRQABAQAAEZxhcHBsAgAAAG1udHJHUkFZWFlaIAfcAAgAFwAPAC4AD2Fjc3BBUFBMAAAAAG5vbmUAAAAAAAAAAAAAAAAAAAAAAAD21gABAAAAANMtYXBwbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABWRlc2MAAADAAAAAeWRzY20AAAE8AAAIGmNwcnQAAAlYAAAAI3d0cHQAAAl8AAAAFGtUUkMAAAmQAAAIDGRlc2MAAAAAAAAAH0dlbmVyaWMgR3JheSBHYW1tYSAyLjIgUHJvZmlsZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABtbHVjAAAAAAAAAB8AAAAMc2tTSwAAAC4AAAGEZGFESwAAADoAAAGyY2FFUwAAADgAAAHsdmlWTgAAAEAAAAIkcHRCUgAAAEoAAAJkdWtVQQAAACwAAAKuZnJGVQAAAD4AAALaaHVIVQAAADQAAAMYemhUVwAAABoAAANMa29LUgAAACIAAANmbmJOTwAAADoAAAOIY3NDWgAAACgAAAPCaGVJTAAAACQAAAPqcm9STwAAACoAAAQOZGVERQAAAE4AAAQ4aXRJVAAAAE4AAASGc3ZTRQAAADgAAATUemhDTgAAABoAAAUMamFKUAAAACYAAAUmZWxHUgAAACoAAAVMcHRQTwAAAFIAAAV2bmxOTAAAAEAAAAXIZXNFUwAAAEwAAAYIdGhUSAAAADIAAAZUdHJUUgAAACQAAAaGZmlGSQAAAEYAAAaqaHJIUgAAAD4AAAbwcGxQTAAAAEoAAAcuYXJFRwAAACwAAAd4cnVSVQAAADoAAAekZW5VUwAAADwAAAfeAFYBYQBlAG8AYgBlAGMAbgDhACAAcwBpAHYA4QAgAGcAYQBtAGEAIAAyACwAMgBHAGUAbgBlAHIAaQBzAGsAIABnAHIA5QAgADIALAAyACAAZwBhAG0AbQBhAC0AcAByAG8AZgBpAGwARwBhAG0AbQBhACAAZABlACAAZwByAGkAcwBvAHMAIABnAGUAbgDoAHIAaQBjAGEAIAAyAC4AMgBDHqUAdQAgAGgA7ABuAGgAIABNAOAAdQAgAHgA4QBtACAAQwBoAHUAbgBnACAARwBhAG0AbQBhACAAMgAuADIAUABlAHIAZgBpAGwAIABHAGUAbgDpAHIAaQBjAG8AIABkAGEAIABHAGEAbQBhACAAZABlACAAQwBpAG4AegBhAHMAIAAyACwAMgQXBDAEMwQwBDsETAQ9BDAAIABHAHIAYQB5AC0EMwQwBDwEMAAgADIALgAyAFAAcgBvAGYAaQBsACAAZwDpAG4A6QByAGkAcQB1AGUAIABnAHIAaQBzACAAZwBhAG0AbQBhACAAMgAsADIAwQBsAHQAYQBsAOEAbgBvAHMAIABzAHoA/AByAGsAZQAgAGcAYQBtAG0AYQAgADIALgAykBp1KHBwlo5RSV6mADIALgAygnJfaWPPj/DHfLwYACDWjMDJACCsELnIACAAMgAuADIAINUEuFzTDMd8AEcAZQBuAGUAcgBpAHMAawAgAGcAcgDlACAAZwBhAG0AbQBhACAAMgAsADIALQBwAHIAbwBmAGkAbABPAGIAZQBjAG4A4QAgAWEAZQBkAOEAIABnAGEAbQBhACAAMgAuADIF0gXQBd4F1AAgBdAF5AXVBegAIAXbBdwF3AXZACAAMgAuADIARwBhAG0AYQAgAGcAcgBpACAAZwBlAG4AZQByAGkAYwEDACAAMgAsADIAQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAARwByAGEAdQBzAHQAdQBmAGUAbgAtAFAAcgBvAGYAaQBsACAARwBhAG0AbQBhACAAMgAsADIAUAByAG8AZgBpAGwAbwAgAGcAcgBpAGcAaQBvACAAZwBlAG4AZQByAGkAYwBvACAAZABlAGwAbABhACAAZwBhAG0AbQBhACAAMgAsADIARwBlAG4AZQByAGkAcwBrACAAZwByAOUAIAAyACwAMgAgAGcAYQBtAG0AYQBwAHIAbwBmAGkAbGZukBpwcF6mfPtlcAAyAC4AMmPPj/Blh072TgCCLDCwMOwwpDCsMPMw3gAgADIALgAyACAw1zDtMNUwoTCkMOsDkwO1A70DuQO6A8wAIAOTA7oDwQO5ACADkwOsA7wDvAOxACAAMgAuADIAUABlAHIAZgBpAGwAIABnAGUAbgDpAHIAaQBjAG8AIABkAGUAIABjAGkAbgB6AGUAbgB0AG8AcwAgAGQAYQAgAEcAYQBtAG0AYQAgADIALAAyAEEAbABnAGUAbQBlAGUAbgAgAGcAcgBpAGoAcwAgAGcAYQBtAG0AYQAgADIALAAyAC0AcAByAG8AZgBpAGUAbABQAGUAcgBmAGkAbAAgAGcAZQBuAOkAcgBpAGMAbwAgAGQAZQAgAGcAYQBtAG0AYQAgAGQAZQAgAGcAcgBpAHMAZQBzACAAMgAsADIOIw4xDgcOKg41DkEOAQ4hDiEOMg5ADgEOIw4iDkwOFw4xDkgOJw5EDhsAIAAyAC4AMgBHAGUAbgBlAGwAIABHAHIAaQAgAEcAYQBtAGEAIAAyACwAMgBZAGwAZQBpAG4AZQBuACAAaABhAHIAbQBhAGEAbgAgAGcAYQBtAG0AYQAgADIALAAyACAALQBwAHIAbwBmAGkAaQBsAGkARwBlAG4AZQByAGkBDQBrAGkAIABHAHIAYQB5ACAARwBhAG0AbQBhACAAMgAuADIAIABwAHIAbwBmAGkAbABVAG4AaQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAHMAegBhAHIAbwFbAGMAaQAgAGcAYQBtAG0AYQAgADIALAAyBjoGJwZFBicAIAAyAC4AMgAgBkQGSAZGACAGMQZFBicGLwZKACAGOQYnBkUEHgQxBEkEMARPACAEQQQ1BEAEMARPACAEMwQwBDwEPAQwACAAMgAsADIALQQ/BEAEPgREBDgEOwRMAEcAZQBuAGUAcgBpAGMAIABHAHIAYQB5ACAARwBhAG0AbQBhACAAMgAuADIAIABQAHIAbwBmAGkAbABlAAB0ZXh0AAAAAENvcHlyaWdodCBBcHBsZSBJbmMuLCAyMDEyAABYWVogAAAAAAAA81EAAQAAAAEWzGN1cnYAAAAAAAAEAAAAAAUACgAPABQAGQAeACMAKAAtADIANwA7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" alt="Tan Dat Huynh">
+<div class="card-center">
+  <div class="card-rank"><span>#4</span> Tan Dat Huynh</div>
+  <div class="card-score score-yellow">54.7</div>
+  <div class="card-salary">月薪: <strong>5,351</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--yellow)">65</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--yellow)">55</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:31%"></div></div>
+  <div class="bar-value" style="color:var(--red)">31</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:58%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">58</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:75%"></div></div>
+  <div class="bar-value" style="color:var(--green)">75</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:37%"></div></div>
+  <div class="bar-value" style="color:var(--red)">37</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:53%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">53</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:78%"></div></div>
+  <div class="bar-value" style="color:var(--green)">78</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:50%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">50</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">基础设施专家, 沟通待改善</span>
+<span class="card-value">技术资产/协作负债: 技术值这个价, 但silo工作方式拖累团队</span>
+<div class="card-eval">13年经验，GitHub分全团队最高(50): 736 commits, 跨8个repo, review 96%实质率。但两位主管不约而同指出: <strong>沟通慢、团队贡献少、独自工作(silo)</strong>。Ryan说"less teamwork, work in silo"，Duy说"slow response in communication, less contribute to the team"。自评相对低调(65分)，与其低调性格一致。<strong>技术过硬但协作短板明显。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #c4a898, #b09888)">RZ</div>
+<div class="card-center">
+  <div class="card-rank"><span>#5</span> Ryan Zen</div>
+  <div class="card-score score-yellow">52.0</div>
+  <div class="card-salary">月薪: <strong>11,200</strong> SGD</div>
+  
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:22%"></div></div>
+  <div class="bar-value" style="color:var(--red)">22</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:47%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">47</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:69%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">69</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:25%"></div></div>
+  <div class="bar-value" style="color:var(--red)">25</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:64%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">64</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:92%"></div></div>
+  <div class="bar-value" style="color:var(--green)">92</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:49%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">49</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">Tech Lead (主管)</span>
+<span class="card-value">最高薪需匹配领导力: review 92%橡皮章, 需从"批准者"变为"质量守门人"</span>
+<div class="card-eval">经验分92(全团队最高)，参与13个repo(最广)。但339次review中92%是橡皮章。作为Tech Lead，review质量是他最大的可改进点。</div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<img class="card-photo" src="data:image/jpeg;base64,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" alt="Ngoc Quang Nguyen">
+<div class="card-center">
+  <div class="card-rank"><span>#6</span> Ngoc Quang Nguyen</div>
+  <div class="card-score score-yellow">47.9</div>
+  <div class="card-salary">月薪: <strong>2,808</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--green)">75</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--green)">82</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:41%"></div></div>
+  <div class="bar-value" style="color:var(--red)">41</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:40%"></div></div>
+  <div class="bar-value" style="color:var(--red)">40</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:72%"></div></div>
+  <div class="bar-value" style="color:var(--green)">72</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:42%"></div></div>
+  <div class="bar-value" style="color:var(--red)">42</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:44%"></div></div>
+  <div class="bar-value" style="color:var(--red)">44</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:48%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">48</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:42%"></div></div>
+  <div class="bar-value" style="color:var(--red)">42</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">PR最多, 成长快</span>
+<span class="card-value">超值引擎: 全团队最低薪却是PR最活跃+第三reviewer, 应加薪留人</span>
+<div class="card-eval">入职时仅2年经验，3.2年后成长为<strong>PR最活跃的开发者</strong>(178个PR)和第三大reviewer。自评为Fullstack Developer，从Artemis3起步后成为Ares3主力，负责NIBSS/GLDB等外部客户定制，集成Handshakes/OpenCorporate/Veriff/REGULA等第三方。Ryan给出全团队最正面评价之一: 代码质量好且干净、被提升管理Ares产品且管理得好、为多客户做重度定制、集成多个第三方供应商。仅两项温和负面: 缺少AWS部署技能和安全知识。<strong>主管评价(82)远高于综合分(47.9)，说明他的实际贡献被Jira量化指标低估。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #c4b098, #b0a088)">DM</div>
+<div class="card-center">
+  <div class="card-rank"><span>#7</span> Duy Minh Phung</div>
+  <div class="card-score score-yellow">46.1</div>
+  <div class="card-salary">月薪: <strong>6,120</strong> SGD</div>
+  
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:14%"></div></div>
+  <div class="bar-value" style="color:var(--red)">14</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:39%"></div></div>
+  <div class="bar-value" style="color:var(--red)">39</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:64%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">64</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:24%"></div></div>
+  <div class="bar-value" style="color:var(--red)">24</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:67%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">67</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:85%"></div></div>
+  <div class="bar-value" style="color:var(--green)">85</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:37%"></div></div>
+  <div class="bar-value" style="color:var(--red)">37</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">产品灵魂 (主管)</span>
+<span class="card-value">不可替代但需重新定位: 7年产品积累无人能替, 但以IC标准衡量性价比偏低</span>
+<div class="card-eval">在公司7年+, 产品灵魂人物。310次review中有31次CHANGES_REQUESTED(全团队最多)，说明关键时刻会把关。Hotfix P50=0.7天证明对系统了如指掌。</div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #a0a098, #909088)">KA</div>
+<div class="card-center">
+  <div class="card-rank"><span>#8</span> Ka An Chong</div>
+  <div class="card-score score-yellow">45.3</div>
+  <div class="card-salary">月薪: <strong>7,500</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--green)">85</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--yellow)">60</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:19%"></div></div>
+  <div class="bar-value" style="color:var(--red)">19</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:69%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">69</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:47%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">47</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:28%"></div></div>
+  <div class="bar-value" style="color:var(--red)">28</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:55%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">55</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:68%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">68</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:38%"></div></div>
+  <div class="bar-value" style="color:var(--red)">38</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">Feature开发, 主动性不足</span>
+<span class="card-value">高薪低效, 团队性价比最差: 第二高薪但完成率最低(78%)+自评与主管差25分</span>
+<div class="card-eval">自评非常出色（85分）: 详细的技能表、端到端交付Transaction Screening系统、22+ AML规则引擎、多租户架构。但与主管评价(60分)形成<strong>25分落差</strong> &mdash; Ryan说"slow in development, less initiative, need guidance"。Jira完成率78%(最低)也佐证了交付问题。PR代码量342K(最大)说明他确实在写大量代码，但<strong>自我认知与主管/数据之间存在显著gap</strong>。</div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<img class="card-photo" src="data:image/jpeg;base64,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" alt="Thobias Pieter">
+<div class="card-center">
+  <div class="card-rank"><span>#9</span> Thobias Pieter</div>
+  <div class="card-score score-yellow">42.6</div>
+  <div class="card-salary">月薪: <strong>3,500</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--yellow)">55</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--yellow)">55</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:40%"></div></div>
+  <div class="bar-value" style="color:var(--red)">40</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:45%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">45</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:66%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">66</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:60%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">60</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:40%"></div></div>
+  <div class="bar-value" style="color:var(--red)">40</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:28%"></div></div>
+  <div class="bar-value" style="color:var(--red)">28</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:17%"></div></div>
+  <div class="bar-value" style="color:var(--red)">17</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">成长奇迹, 仍需指导</span>
+<span class="card-value">低薪成长型: 薪资匹配当前能力, 零经验到独立做事, 性价比合理</span>
+<div class="card-eval">零经验入职，3年成长为能独立处理Bug/Hotfix/Feature的开发者。自评诚实(55分): 列举的全是战术级bug修复，没有架构或系统设计工作。两位主管一致: "still junior, need guidance on solving problems"。GitHub仅5次review。<strong>成长奇迹，但仍在junior阶段，需加强review和系统设计能力。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<img class="card-photo" src="data:image/jpeg;base64,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" alt="Jing Han Ng">
+<div class="card-center">
+  <div class="card-rank"><span>#10</span> Jing Han Ng</div>
+  <div class="card-score score-red">39.8</div>
+  <div class="card-salary">月薪: <strong>离职</strong> SGD</div>
+  
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:17%"></div></div>
+  <div class="bar-value" style="color:var(--red)">17</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:39%"></div></div>
+  <div class="bar-value" style="color:var(--red)">39</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:55%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">55</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:13%"></div></div>
+  <div class="bar-value" style="color:var(--red)">13</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:66%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">66</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:55%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">55</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:37%"></div></div>
+  <div class="bar-value" style="color:var(--red)">37</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">Review质量最高</span>
+<span class="card-value">已离职/最可惜的流失: 完成率97%+review 93%实质率(全团队最高), 这是最不该走的人</span>
+<div class="card-eval">完成率97%, 积压仅6条, <strong>全团队review质量最高(93%实质率, 0次空approve)</strong>。入职9个月，已展现最佳工程实践习惯。无自评数据。</div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #98b0a8, #88a098)">HV</div>
+<div class="card-center">
+  <div class="card-rank"><span>#11</span> Huy Vuong Do Thanh</div>
+  <div class="card-score score-red">39.5</div>
+  <div class="card-salary">月薪: <strong>3,088</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--green)">82</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--green)">78</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:15%"></div></div>
+  <div class="bar-value" style="color:var(--red)">15</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:64%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">64</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:34%"></div></div>
+  <div class="bar-value" style="color:var(--red)">34</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:20%"></div></div>
+  <div class="bar-value" style="color:var(--red)">20</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:43%"></div></div>
+  <div class="bar-value" style="color:var(--red)">43</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:75%"></div></div>
+  <div class="bar-value" style="color:var(--green)">75</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:34%"></div></div>
+  <div class="bar-value" style="color:var(--red)">34</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">前端专家, 主动性待提升</span>
+<span class="card-value">被低估的专家: 10年FE经验+PR合并率96%(最高), 薪资仅3K, 有流失风险</span>
+<div class="card-eval">10年+前端专家，PR合并率96%(最高)。自评出色（82分）: 展示了架构判断力和pre-development planning视角。两位主管高度认可FE能力和代码质量，但Ryan指出<strong>"less initiative"</strong>, Duy无负面评价。<strong>技术能力与自评吻合，但主动性是成长瓶颈。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #b0a0b8, #a090a8)">VV</div>
+<div class="card-center">
+  <div class="card-rank"><span>#12</span> Van Vu Tran</div>
+  <div class="card-score score-red">37.4</div>
+  <div class="card-salary">月薪: <strong>3,351</strong> SGD</div>
+  <div class="card-sub-scores"><span>自评 <strong style="color:var(--green)">80</strong></span> &nbsp;|&nbsp; <span>主管评价 <strong style="color:var(--green)">70</strong></span></div>
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:0%"></div></div>
+  <div class="bar-value" style="color:var(--red)">0</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:82%"></div></div>
+  <div class="bar-value" style="color:var(--green)">82</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:25%"></div></div>
+  <div class="bar-value" style="color:var(--red)">25</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:23%"></div></div>
+  <div class="bar-value" style="color:var(--red)">23</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:50%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">50</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-green" style="width:82%"></div></div>
+  <div class="bar-value" style="color:var(--green)">82</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:18%"></div></div>
+  <div class="bar-value" style="color:var(--red)">18</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">强背景, 过度设计倾向</span>
+<span class="card-value">观察期: 10年经验+3.3K薪资本身不贵, 但月均4.3条(最低)+过度设计, 半年后再评</span>
+<div class="card-eval">经验分82(第三高)，入职9个月。自评展示了广泛技能和主动性(security/Elasticsearch/RAG研究)。但两位主管不约而同指出同一问题: <strong>过度设计(over-engineered)</strong>。Duy说"thinks about problems 1000 years later, causing delay"; Ryan说"solution is too optimal resulted in over-engineered"。GitHub review 40%实质率(不错)，16次CHANGES_REQUESTED(第二多)。<strong>能力强但需要学会在"最优方案"和"按时交付"之间取舍。</strong></div>
+</div>
+</div>
+
+<div class="player-card">
+<div class="card-top">
+<div class="card-initials" style="background:linear-gradient(135deg, #c4a0a0, #b09090)">HE</div>
+<div class="card-center">
+  <div class="card-rank"><span>#13</span> Hassan Elseoudy</div>
+  <div class="card-score score-red">34.3</div>
+  <div class="card-salary">月薪: <strong>离职</strong> SGD</div>
+  
+</div>
+<div class="card-bars">
+<div class="bar-row">
+  <div class="bar-label">产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:48%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">48</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">难度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:45%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">45</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">效率</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:0%"></div></div>
+  <div class="bar-value" style="color:var(--red)">0</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">强度</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:42%"></div></div>
+  <div class="bar-value" style="color:var(--red)">42</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">稳定产出</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:13%"></div></div>
+  <div class="bar-value" style="color:var(--red)">13</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">简历评估</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width:65%"></div></div>
+  <div class="bar-value" style="color:var(--yellow)">65</div>
+</div>
+<div class="bar-row">
+  <div class="bar-label">代码贡献</div>
+  <div class="bar-track"><div class="bar-fill bar-fill-red" style="width:32%"></div></div>
+  <div class="bar-value" style="color:var(--red)">32</div>
+</div>
+
+</div>
+</div>
+<div class="card-bottom">
+<span class="card-role">交付节奏失控</span>
+<span class="card-value">已离职/走了不亏: P50=41天(最慢)+P90=245天+积压36条(最多), PR合并率95%说明能写代码但不能按时交付</span>
+<div class="card-eval">PR合并率95%说明代码质量不差，但Jira P50=41天/P90=245天说明任务管理严重失控。月度波动极端(7月40条, 6月1条)。入职前每段工作&lt;1年。无自评数据。<strong>问题不在代码能力，在交付纪律。</strong></div>
+</div>
+</div>
+
+<hr class="section-divider">
+<h2>二、评估方法论</h2>
+
+<h3>数据来源</h3>
+<table>
+<thead><tr><th>来源</th><th>数据量</th><th>涵盖内容</th></tr></thead>
+<tbody>
+<tr><td>Jira</td><td>6648条ticket</td><td>Issue Type, Status, Priority, Assignee, Created, Resolved</td></tr>
+<tr><td>GitHub</td><td>19个repo, 6323条commit, 1264条PR</td><td>Commit频率, PR合并率, 代码行数, Code Review数量及质量</td></tr>
+<tr><td>简历</td><td>13份</td><td>入职前工作经验, 教育背景, 技术栈, 行业经历</td></tr>
+<tr><td>自评+主管评价</td><td>7份(部分成员缺失)</td><td>自述贡献, 主管正面/负面评价</td></tr>
+</tbody>
+</table>
+
+<h3>综合分维度与权重</h3>
+<table>
+<thead><tr><th>维度</th><th>权重</th><th>数据来源</th><th>衡量内容</th></tr></thead>
+<tbody>
+<tr><td>产出量</td><td>18%</td><td>Jira</td><td>月均resolved数</td></tr>
+<tr><td>任务难度</td><td>14%</td><td>Jira</td><td>Feature占比, 高优占比, 跨项目数</td></tr>
+<tr><td>工作效率</td><td>18%</td><td>Jira</td><td>P50解决时间, 完成率</td></tr>
+<tr><td>工作强度</td><td>11%</td><td>Jira</td><td>高优任务数, Bug/Hotfix占比, 总量</td></tr>
+<tr><td>产出稳定性</td><td>11%</td><td>Jira</td><td>月产出变异系数(CV), 积压比</td></tr>
+<tr><td>经验背景</td><td>13%</td><td>简历</td><td>入职前年限, 职级, 教育, 技术广度</td></tr>
+<tr><td>代码贡献</td><td>15%</td><td>GitHub</td><td>Commit频率, PR数/合并率, Review数, Repo广度, 代码量</td></tr>
+</tbody>
+</table>
+
+<div class="note">自评分和主管分<strong>不计入综合分</strong>，作为独立参考维度展示。</div>
+
+<h3>评估局限性</h3>
+<ul>
+<li><strong>Feature开发者系统性低估</strong> &mdash; Feature周期比Hotfix长，P50天然偏高</li>
+<li><strong>管理角色低估</strong> &mdash; 管理、协调、架构工作不体现在Jira ticket中</li>
+<li><strong>新入职成员数据不足</strong> &mdash; Van Tu Le(5个月)和Van Vu Tran(9个月)的观察期短</li>
+<li><strong>Resolution Time包含等待时间</strong> &mdash; 含需求澄清、Code Review、QA、部署等待</li>
+<li><strong>简历信息可能过时</strong> &mdash; 部分简历是入职时提交的</li>
+<li><strong>自评和主管评价覆盖不完整</strong> &mdash; 13人中仅7人有数据，4人缺失</li>
+</ul>
+
+<hr class="section-divider">
+<h2>三、Jira项目管理分析</h2>
+
+<h3>核心指标</h3>
+<div class="tbl-scroll">
+<table>
+<thead><tr><th>姓名</th><th>总任务</th><th>已完成</th><th>完成率</th><th>月均</th><th>P50(天)</th><th>HF P50</th><th>高优占比</th><th>积压</th><th>任务构成</th><th>CV</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>167</td><td>164</td><td>98%</td><td>16.0</td><td>3.2</td><td>3.9</td><td>7%</td><td>4</td><td>Task 70%</td><td>0.57</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td>163</td><td>157</td><td>96%</td><td>12.7</td><td>6.0</td><td>2.7</td><td>22%</td><td>32</td><td>Hotfix 57%</td><td>0.44</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td>148</td><td>115</td><td>78%</td><td>9.9</td><td>41.0</td><td>3.8</td><td>10%</td><td>36</td><td>Task 43%, Feature 27%</td><td>0.95</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Van Tu Le</td><td>126</td><td>118</td><td>94%</td><td>9.7</td><td>15.9</td><td>4.8</td><td>30%</td><td>22</td><td>均衡(各20-32%)</td><td>0.46</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ngoc Quang Nguyen</td><td>121</td><td>110</td><td>91%</td><td>9.1</td><td>11.8</td><td>3.1</td><td>17%</td><td>23</td><td>Task 45%</td><td>0.68</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Thobias Pieter</td><td>120</td><td>110</td><td>92%</td><td>8.9</td><td>16.8</td><td>5.0</td><td>22%</td><td>28</td><td>Bug+Hotfix 57%</td><td>0.65</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td>110</td><td>98</td><td>89%</td><td>8.0</td><td>8.1</td><td>7.0</td><td>15%</td><td>26</td><td>均衡, 跨3项目</td><td>0.48</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ka An Chong</td><td>102</td><td>80</td><td>78%</td><td>6.5</td><td>12.4</td><td>1.3</td><td>21%</td><td>27</td><td>Feature 25%, 2 Epic</td><td>0.41</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>97</td><td>85</td><td>88%</td><td>6.9</td><td>10.0</td><td>13.3</td><td>15%</td><td>11</td><td>Task 59%</td><td>0.60</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Huy Vuong Do Thanh</td><td>89</td><td>73</td><td>82%</td><td>6.0</td><td>25.1</td><td>-</td><td>16%</td><td>23</td><td>Feature 40%</td><td>0.57</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Duy Minh Phung</td><td>82</td><td>72</td><td>88%</td><td>5.9</td><td>13.0</td><td>0.7</td><td>20%</td><td>16</td><td>Task 49%</td><td>0.40</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td>69</td><td>67</td><td>97%</td><td>6.2</td><td>29.9</td><td>2.8</td><td>14%</td><td>6</td><td>Task 43%, Bug 26%</td><td>0.64</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td>56</td><td>46</td><td>82%</td><td>4.3</td><td>30.8</td><td>2.0</td><td>36%</td><td>18</td><td>Feature 38%</td><td>0.35</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Jira发现</h3>
+<ul>
+<li><strong>效率两极分化</strong>: Zack(P50=3.2天) vs Hassan(P50=41天)差12倍，但工作类型完全不同</li>
+<li><strong>救火型 vs 建设型</strong>: Gunawan(Hotfix 57%) vs Huy Vuong(Feature 40%, Hotfix 2%) &mdash; 不能用同一尺子衡量</li>
+<li><strong>Hassan的矛盾</strong>: 总量148条(第三)，月均9.9(不低)，但P50=41天、P90=245天、CV=0.95 &mdash; 大量任务长期不关闭，产出极不稳定</li>
+<li><strong>完成率最低</strong>: Ka An Chong和Hassan均78%</li>
+<li><strong>Duy Minh Phung角色转型</strong>: 历史总量586条(第一)，近12个月仅82条 &mdash; 从执行转向管理</li>
+</ul>
+
+<hr class="section-divider">
+<h2>四、GitHub代码贡献分析</h2>
+
+<h3>核心指标</h3>
+<div class="tbl-scroll">
+<table>
+<thead><tr><th>姓名</th><th>Commits</th><th>Repos</th><th>PRs</th><th>Merged</th><th>合并率</th><th>PR增行</th><th>Reviews</th><th>GitHub分</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700;font-size:0.95em">Van Tu Le</td><td>750</td><td>4</td><td>0</td><td>0</td><td>-</td><td>-</td><td>0</td><td>26.8</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td>736</td><td>8</td><td>121</td><td>95</td><td>79%</td><td>683K</td><td>17</td><td>49.8</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Duy Minh Phung</td><td>650</td><td>10</td><td>35</td><td>23</td><td>66%</td><td>87K</td><td>263</td><td>36.7</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Huy Vuong Do Thanh</td><td>645</td><td>3</td><td>116</td><td>111</td><td>96%</td><td>156K</td><td>66</td><td>33.9</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td>502</td><td>6</td><td>104</td><td>99</td><td>95%</td><td>227K</td><td>24</td><td>32.1</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ka An Chong</td><td>492</td><td>6</td><td>114</td><td>105</td><td>92%</td><td>342K</td><td>58</td><td>38.3</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td>405</td><td>3</td><td>97</td><td>74</td><td>76%</td><td>70K</td><td>22</td><td>19.3</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>378</td><td>13</td><td>73</td><td>70</td><td>96%</td><td>165K</td><td>329</td><td>48.8</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ngoc Quang Nguyen</td><td>373</td><td>3</td><td>178</td><td>162</td><td>91%</td><td>188K</td><td>116</td><td>41.5</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td>359</td><td>3</td><td>158</td><td>148</td><td>94%</td><td>126K</td><td>59</td><td>37.0</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Thobias Pieter</td><td>286</td><td>3</td><td>101</td><td>80</td><td>79%</td><td>55K</td><td>5</td><td>16.9</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td>268</td><td>2</td><td>71</td><td>58</td><td>82%</td><td>32K</td><td>85</td><td>18.2</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>115</td><td>8</td><td>9</td><td>9</td><td>100%</td><td>8K</td><td>2</td><td>7.3</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Repo贡献分布</h3>
+<div class="tbl-scroll">
+<table>
+<thead><tr><th>姓名</th><th>Artemis3.0</th><th>Athena</th><th>KYCOnboarding</th><th>Microservices</th><th>Deployer</th><th>ArtemiScan</th><th>其他</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700;font-size:0.95em">Van Tu Le</td><td><strong>700</strong></td><td></td><td>8</td><td>32</td><td></td><td></td><td>10</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td>241</td><td></td><td></td><td>155</td><td></td><td><strong>171</strong></td><td>169</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Duy Minh Phung</td><td><strong>473</strong></td><td></td><td>52</td><td>67</td><td>4</td><td>10</td><td>44</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Huy Vuong Do Thanh</td><td>5</td><td><strong>496</strong></td><td>144</td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td>120</td><td><strong>237</strong></td><td>75</td><td></td><td>5</td><td></td><td>65</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ka An Chong</td><td></td><td><strong>278</strong></td><td>15</td><td></td><td><strong>114</strong></td><td></td><td>85</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td><strong>330</strong></td><td></td><td></td><td>23</td><td>52</td><td></td><td></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>72</td><td>107</td><td><strong>125</strong></td><td>24</td><td>12</td><td>5</td><td>33</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ngoc Quang Nguyen</td><td><strong>178</strong></td><td></td><td><strong>168</strong></td><td>27</td><td></td><td></td><td></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td>69</td><td></td><td><strong>289</strong></td><td>1</td><td></td><td></td><td></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Thobias Pieter</td><td><strong>244</strong></td><td></td><td>23</td><td>19</td><td></td><td></td><td></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td><strong>232</strong></td><td></td><td>36</td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>1</td><td></td><td>4</td><td></td><td><strong>40</strong></td><td>2</td><td>68</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Code Review质量</h3>
+<div class="tbl-scroll">
+<table>
+<thead><tr><th>Reviewer</th><th>总Reviews</th><th>空Approve</th><th>橡皮章率</th><th>CHANGES_REQ</th><th>实质内容</th><th>实质率</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>339</td><td>311</td><td><strong>92%</strong></td><td>4</td><td>23</td><td><strong>7%</strong></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Duy Minh Phung</td><td>310</td><td>265</td><td><strong>85%</strong></td><td>31</td><td>34</td><td><strong>11%</strong></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td>126</td><td>47</td><td>37%</td><td>16</td><td>51</td><td><strong>40%</strong></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ngoc Quang Nguyen</td><td>123</td><td>95</td><td><strong>77%</strong></td><td>0</td><td>19</td><td>15%</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Huy Vuong Do Thanh</td><td>85</td><td>63</td><td><strong>74%</strong></td><td>2</td><td>5</td><td>6%</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td>82</td><td>5</td><td>6%</td><td>3</td><td>9</td><td>11%</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ka An Chong</td><td>72</td><td>53</td><td><strong>74%</strong></td><td>0</td><td>1</td><td><strong>1%</strong></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td>60</td><td>0</td><td><strong>0%</strong></td><td>0</td><td>56</td><td><strong>93%</strong></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td>25</td><td>2</td><td>8%</td><td>0</td><td>19</td><td><strong>76%</strong></td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td>24</td><td>1</td><td>4%</td><td>0</td><td>11</td><td>46%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note"><strong>橡皮章</strong> = Approve但body为空(未留任何评论)。<strong>实质率</strong> = (CHANGES_REQUESTED + 有内容的COMMENTED/APPROVED) / 总reviews。</div>
+
+<h3>GitHub发现</h3>
+<ul>
+<li><strong>Review形式化严重</strong>: Ryan Zen(92%橡皮章)和Duy Minh Phung(85%橡皮章)看似承担54%的review，但大部分是空approve。代码审查实质上处于<strong>半失效状态</strong>。</li>
+<li><strong>真正认真review的人</strong>: Jing Han Ng(93%实质率), Gunawan(76%), Tan Dat Huynh(46%), Van Vu Tran(40%)。</li>
+<li><strong>Van Tu Le: 750 commits / 0 PRs</strong> &mdash; 代码未经任何peer review直接合入，显著质量风险。</li>
+<li><strong>Thobias: 101 PRs / 5 reviews</strong> &mdash; 只写不审，3年经验应开始承担review责任。</li>
+<li><strong>PR活跃度 &ne; Jira活跃度</strong>: Ngoc Quang Nguyen Jira排#6但PR数(178)排#1; Jing Han Ng Jira排#10但PR(158)排#2。</li>
+<li><strong>角色层</strong>: Review层(Ryan/Duy/Quang, 名义守门) &rarr; 产出层(Tu/Dat/Huy/Hassan/KaAn, 主力写码) &rarr; 支撑层(Zack, 基础设施)。</li>
+</ul>
+
+<hr class="section-divider">
+<h2>五、简历经验背景评估</h2>
+
+<h3>评分标准</h3>
+<table>
+<thead><tr><th>分数段</th><th>含义</th></tr></thead>
+<tbody>
+<tr><td>85-100</td><td>资深: 10年+, Tech Lead/架构角色, 深厚行业相关度</td></tr>
+<tr><td>65-84</td><td>中高级: 7年+或有突出leadership/技术深度</td></tr>
+<tr><td>45-64</td><td>中级: 有正式工作经验, 但深度或广度有限</td></tr>
+<tr><td>25-44</td><td>初中级: 转行、应届或经验不足</td></tr>
+</tbody>
+</table>
+
+<h3>各成员简历摘要</h3>
+<div class="tbl-scroll">
+<table>
+<thead><tr><th>姓名</th><th>经验分</th><th>总经验</th><th>学历</th><th>入职前最高职级</th><th>在公司</th><th>背景关键词</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>92</td><td>20年+</td><td>Master(RMIT)</td><td>Technical Lead</td><td>3.7年</td><td>游戏(80K RPM)&rarr;金融(DBS chatbot)&rarr;KYC, ISO-27001</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Duy Minh Phung</td><td>85</td><td>13年+</td><td>Bachelor(Ton Duc Thang)</td><td>Project Owner/Team Lead</td><td>7.2年</td><td>流媒体&rarr;外汇Fintech&rarr;ERP&rarr;Cynopsis 7年, Artemis/Ares核心建设者</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td>82</td><td>10年+</td><td>Bachelor(Industrial U)</td><td>Senior Squad Leader</td><td>9个月</td><td>KMS&rarr;Hanatour&rarr;Axon Active 6.5年(瑞士保险, 迁移50微服务到GCP)</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td>78</td><td>13年+</td><td>Bachelor(HCM)+CCNA</td><td>Crawler Team Leader</td><td>4.8年</td><td>VNG&rarr;FPT&rarr;Magic8labs(爬虫, Kafka/Spark/K8s/ML)</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Huy Vuong Do Thanh</td><td>75</td><td>10年+</td><td>Bachelor(RMIT VN)</td><td>Senior Web Developer</td><td>2.3年</td><td>Shopmacher 8年(React/Next, 欧洲电商), Employment Hero</td></tr>
+<tr><td>Le Van Tu</td><td>72</td><td>7年</td><td>Bachelor(VNU-HCM)</td><td>Project Leader</td><td>5个月</td><td>DXC Technology 4年(保险/Emirates微服务, 团队管理)</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ka An Chong</td><td>68</td><td>7年+</td><td>Bachelor CS(NTU)</td><td>Software Engineer</td><td>3.2年</td><td>UCLA实习, Arup 5年(数字化转型, React/C#/Python/Azure/AWS)</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td>65</td><td>5+</td><td>BSc(Alexandria U)</td><td>Full-Stack Engineer</td><td>4.5年</td><td>ICPC Finalist, 开源贡献, 碎片化职业(每段&lt;1年)</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td>58</td><td>7年+</td><td>Bachelor(Gadjah Mada)</td><td>Backend Developer</td><td>3.5年</td><td>Call-Levels(DBS chatbot, NFT), Node/Python/TypeScript</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td>55</td><td>5年</td><td>Bachelor(TAR UC, 一等荣誉)</td><td>Software Engineer</td><td>9个月</td><td>Amdocs 3年(电信核心网, Java/K8s), 兼职讲师</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Ngoc Quang Nguyen</td><td>48</td><td>2年(入职前)</td><td>Bachelor(Da Nang U, GPA3.7)</td><td>Junior/Freelancer</td><td>3.2年</td><td>黑客松冠军, ML/AI背景, IELTS 7.5</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>42</td><td>4年+(软件)</td><td>BSc EE(TU Munich)+Bootcamp</td><td>Software Engineer(转行)</td><td>5年</td><td>电气工程转行, 12周bootcamp, DevOps/基础设施</td></tr>
+<tr><td style="font-weight:700;font-size:0.95em">Thobias Pieter</td><td>28</td><td>0年</td><td>Bachelor BIS(Wollongong)</td><td>无</td><td>3.3年</td><td>应届毕业生, 只有学术项目</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr class="section-divider">
+<h2>六、自评与主管评价</h2>
+
+<h3>评分规则</h3>
+
+<p><strong>自评分(能力/贡献)</strong>评分标准:</p>
+<ul>
+<li>贡献的具体性和可验证性（模糊 vs 具体）</li>
+<li>技术广度和深度</li>
+<li>自我认知（是否提及不足和成长方向）</li>
+<li>声称的贡献与实际数据（Jira/GitHub）的一致性</li>
+<li>影响层级（战术级bug修复 vs 系统级架构/设计）</li>
+</ul>
+
+<p><strong>主管分</strong>评分标准:</p>
+<ul>
+<li>正面评价的具体性和分量</li>
+<li>负面评价的严重性（态度问题 > 技能缺口）</li>
+<li>两位主管(Duy+Ryan)评价的一致性</li>
+<li>负面评价是否可改进（"需要更多经验" vs "缺乏主动性"）</li>
+</ul>
+
+<p>两个分数均为0-100分，<strong>不计入综合分</strong>，仅作为定性参考。</p>
+
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Gunawan Swandono &mdash; 自评: 85 | 主管: 80</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>列举了极其详细的技术贡献: 可扩展REST API设计、端到端后端特性开发、事务边界和并发问题(死锁/竞态)解决、数据库优化(JSONB迁移)、Redis缓存策略、跨repo协作(Artemis3.0/RiskAssess/Microservices/Deployer)、CI/CD管道、生产问题诊断、定时任务恢复机制(Quartz)。技术栈: Java 17+/Spring Boot/PostgreSQL/Redis/Golang/Python/React/TypeScript/Jenkins/Docker/AWS。</p>
+<h5>自评评分依据(85)</h5>
+<p>贡献具体可验证，与GitHub数据(405 commits, 跨3 repo, 97 PRs)吻合。声称的技术广度(Java+Python+Go+React)有GitHub repo分布佐证。影响层级覆盖从bug修复到系统设计。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Duy</td><td>Java Spring Boot & Python & DevOps全面; 好沟通好态度; 愿意学新东西</td><td>方案有时只修具体case, 不考虑整体系统设计</td></tr>
+<tr><td>Ryan</td><td>端到端理解Artemis和CRM; 能搭建A3/CRM服务器; 解决复杂问题(race condition/slow query); 安全修改数据库结构; 团队精神好; 能做code review; 能做DevOps/SRE</td><td>需要更多复杂问题的经验</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(80)</h5>
+<p>两位主管高度一致的正面评价，负面评价温和且可改进("需要更多经验")。Ryan的评价尤其详细和正面。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Van Tu Le &mdash; 自评: 82 | 主管: 72</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>结构非常清晰(Role&rarr;Key Contributions&rarr;Skills&rarr;Ownership&rarr;Impact&rarr;Goals)。声称: 负责Artemis核心业务逻辑、CRM后端API优化、ReactJS前端集成、Python微服务、Ares支持、Redis缓存性能优化、跨模块关键debugging。展现了strong ownership和clean code意识。目标: 提升系统设计和架构能力, 贡献技术方向, 支持团队成长。</p>
+<h5>自评评分依据(82)</h5>
+<p>结构化程度全团队最高，展示了成熟的自我认知(含改进目标)。声称的贡献与GitHub(750 commits, 主力Artemis3.0 700 commits)一致。扣分: 未提及0 PR的流程问题。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Duy</td><td>Java Spring Boot能力好; 愿意在不同角色学习新东西</td><td>方案需要简化, 有时过度设计导致难以review</td></tr>
+<tr><td>Ryan</td><td>Java经验; 理解REST API/Message Queue/Async; 能优化数据库性能; 团队精神好</td><td>FE框架(Angular/React)经验不足; 英语沟通不够自信</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(72)</h5>
+<p>正面评价实质性强(Java/DB/团队), 负面评价温和可改进(FE经验/英语/方案简化)。但Duy提到"过度设计导致难以review"与他0 PR的现状形成呼应 &mdash; 方案复杂+不走PR流程=双重风险。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Tan Dat Huynh &mdash; 自评: 65 | 主管: 55</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>自述Backend Engineer角色。贡献: 开发维护Microservices(供Artemis/Ares/Athena做screening)、开发维护Artemis 0/1/2、IRIS自动化交易review系统(MAS FAIR法规)、Artemis 3 bug修复和根因分析、数据迁移(Artemis 1/2&rarr;3)。技术栈: Python(Django/Web2py/Flask)/Java/JS/Docker/Redis/RabbitMQ/Celery/Nginx/uWSGI/AWS。</p>
+<h5>自评评分依据(65)</h5>
+<p>贡献具体但主要是维护和迁移类工作, 较少创新或系统设计。与GitHub(736 commits, 跨8 repo)吻合，尤其ArtemiScan(171)和Microservices(155)确认了他的microservices维护角色。自评相对低调。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Duy</td><td>持续维护老系统(Artemis 1/2, IRIS); Python能力好</td><td>沟通回复慢; 对团队贡献少</td></tr>
+<tr><td>Ryan</td><td>独立解决问题; 独立维护30个制裁名单的爬虫; 管理8-10个微服务; 掌握多语言多产品含遗留代码; 理解Message Queue和认证</td><td>沟通慢; 团队协作少; 独自工作(silo)</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(55)</h5>
+<p>技术能力被两位主管认可, 但沟通和团队协作问题<strong>被两人不约而同提出</strong>, 说明不是个别看法而是共识。"work in silo"和"less contribute to the team"是态度/习惯类问题, 比纯技能缺口更难改变。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Ka An Chong &mdash; 自评: 85 | 主管: 60</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>非常详细的技能矩阵(覆盖Language/Backend/Frontend/DB/API/Messaging/Cloud/Data/Auth/Testing/Integration/Domain 12个类别)。声称端到端交付Transaction Screening(Quickscan)系统、Merkle Science API crypto screening集成、22+ AML/CFT规则引擎、Celery异步管道、django-tenants多租户架构、RESTful API + OpenAPI 3.0。</p>
+<h5>自评评分依据(85)</h5>
+<p>声称的贡献极其详细和系统化, 技术广度在自评中最高。与GitHub(492 commits, 114 PRs, 342K行代码)部分吻合。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Ryan</td><td>Python后端(Artemis 2/Athena); 能维护和管理Athena含部署; 能处理生产查询(SRE); Docker本地部署(Django/Nginx/Angular)</td><td>开发速度偏慢; 主动性不足; 有时需要指导</td></tr>
+<tr><td>Duy</td><td>态度好, 有支持意识</td><td>N/A</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(60)</h5>
+<p>自评(85)与主管(60)差距<strong>25分, 全团队最大</strong>。Ryan明确指出"slow in development, less initiative, need guidance" &mdash; 这与Jira完成率78%(最低)和积压27条一致。自评中展示的系统性贡献与主管观察到的"需要指导"形成反差, 说明<strong>自我认知与外部评价存在显著偏差</strong>。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Thobias Pieter &mdash; 自评: 55 | 主管: 55</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>技能: Spring Boot/React/PostgreSQL/Angular/Python/Java/TypeScript/Docker/HTML/Thymeleaf。贡献全部是战术级工作: 修复认证问题(登录失败/MFA/密码策略)、数据不一致(UI和报告/screening结果/关系图)、下载上传问题、UI/UX bug、输入验证、screening问题(卡住/重复/stale状态)、紧急客户事件、hotfix、审计日志导出、i18n、VAPT修复。</p>
+<h5>自评评分依据(55)</h5>
+<p>自评诚实反映了他的实际工作层级 &mdash; 全是bug修复和功能细节, 没有架构、设计或系统级工作。与Jira数据(Bug+Hotfix占57%)和GitHub(286 commits/101 PRs)吻合。自我认知准确。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Duy</td><td>前端能力好(ReactJS/Angular); Artemis 3.0前端贡献大</td><td>方案需改进(只修具体case不考虑整体设计); 后端上手慢</td></tr>
+<tr><td>Ryan</td><td>主要做FE变更含i18n; 正在熟悉Java SpringBoot; 沟通好态度好</td><td>仍然junior和年轻; 需要解决问题方面的指导</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(55)</h5>
+<p>两位主管一致: 技术上仍在junior阶段, 需要指导。正面评价集中在态度和前端执行, 负面评价集中在独立解决问题的能力不足。与自评(55)吻合, 自我认知准确。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Huy Vuong Do Thanh &mdash; 自评: 82 | 主管: 78</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>Senior Frontend Engineer, 主要在Athena(primary)/Ares 3/NIBSS/GLDB/A3。技能: Angular 14/TypeScript/NgRx/RxJS/SCSS/GraphQL/Vis.js/D3.js/Chart.js/Plotly.js/WebSocket/AWS/ESLint/Prettier/Husky, AI-augmented development with architectural oversight。声称: 在Athena上构建transaction screening/case management/customer profiling/interactive network visualization; 在Ares 3实现KYC identity verification(liveness detection); AWS CI/CD管道; 架构判断力(surfacing frontend constraints early, aligning API contracts with backend teams)。</p>
+<h5>自评评分依据(82)</h5>
+<p>定位清晰(Senior FE), 贡献具体且有系统级视角(架构判断、pre-development planning)。与GitHub(645 commits, 主力Athena 496 commits, 116 PRs, 96%合并率)高度吻合。提到"AI-augmented development with architectural oversight"展示了前沿意识。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Ryan</td><td>FE框架精通(Angular/React/i18n); 代码易读; 能管理和建议FE结构性变更; 好团队精神和沟通; 能帮助同事解决FE问题和分享最佳实践</td><td>主动性不足; BE和DevOps经验少</td></tr>
+<tr><td>Duy</td><td>沟通好; 前端专家; 对自己的代码和方案负责</td><td>(无)</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(78)</h5>
+<p>Ryan给出了非常详细的正面评价(5项), 负面仅2项且其中"BE/DevOps经验少"对FE专家来说是预期内的。Duy全正面无负面。唯一减分项是Ryan提到的"less initiative" &mdash; 与Ka An Chong相同的问题, 但Huy的整体评价明显更好。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Van Vu Tran &mdash; 自评: 80 | 主管: 70</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>Core Skills: Java/Spring Boot/Python/JS/TS/React/Angular/microservices/security/Scrum/Kanban/SAFe。声称: 主导解决VAPT安全问题(ARES和Artemis); 发现并修复多个关键安全漏洞; 增强审计功能(Artemis和CRM); 改善日志和监控; 集成Fingerprint和Google Tag Manager; 研究并展示Elasticsearch方案(搜索/索引/日志/追踪/审计); 探索并展示RAG方案。目标: 向solution-oriented角色成长, 更大影响力于系统架构和团队发展。</p>
+<h5>自评评分依据(80)</h5>
+<p>贡献具体且展示了主动性(研究Elasticsearch/RAG), 入职9个月即声称覆盖安全/审计/监控/搜索多个领域。与GitHub(268 commits, 71 PRs, 126次review含40%实质率)大体吻合。略扣分: 入职时间短, 部分贡献难以从数据验证。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Duy</td><td>问题分析和解决能力好; 对自己提议的代码非常负责; 总是追求最优方案; Java Spring Boot好</td><td>有时会想"1000年后才会出现的问题", 导致交付延迟</td></tr>
+<tr><td>Ryan</td><td>能为安全问题和业务功能提供方案; Java经验; 理解REST API/Message Queue/Async</td><td>方案过于追求最优, 导致过度设计(over-engineered)</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(70)</h5>
+<p>技术能力被认可, 但两位主管<strong>不约而同指出同一核心问题: 过度设计导致交付延迟</strong>。Duy的表述("thinks about problems 1000 years later")和Ryan的("too optimal resulted in over-engineered")高度一致。这不是技能缺口而是工程判断力问题 &mdash; 何时"够好"即可交付, 是他最需要突破的瓶颈。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<div class="eval-section">
+<h4>Ngoc Quang Nguyen &mdash; 自评: 75 | 主管: 82</h4>
+
+<div class="eval-block">
+<h5>自评摘要</h5>
+<p>Fullstack Developer，从Artemis3起步（开发功能、修bug、参与设计），后转为Ares3主力开发和维护。还支持OCR微服务和SDK。技术栈: Java Spring Boot(后端)/Python(服务和数据)/ReactJS+Angular(前端)。贡献: 新功能开发、bug修复、集成第三方(Handshakes/OpenCorporate/AsiaVerify/Veriff/REGULA)、提升Artemis3和Ares3系统稳定性。参与设计讨论，贡献系统可扩展性和可维护性方案。负责外部客户定制实施(NIBSS/GLDB)，作为客户需求的主要对接人。</p>
+<h5>自评评分依据(75)</h5>
+<p>贡献具体且涵盖全栈(API/优化/业务逻辑/UI/UX)。客户定制(NIBSS/GLDB)展示了需求理解和系统适配能力。与GitHub数据(373 commits, 178 PRs, 主力在Artemis3.0和KYCOnboarding1.0)高度吻合。自评风格务实，不夸大。</p>
+</div>
+
+<p><strong>主管评价:</strong></p>
+<table>
+<thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
+<tbody>
+<tr><td>Ryan</td><td>能为Artemis 3提出好方案; 能与产品经理合作按规格构建产品; 代码质量好且干净; 被提升管理Ares产品，管理得好; 为多个客户做重度定制(Nigerian Bank/Green Link Digital Bank); 态度好沟通好; 集成多个第三方(Veriff/Regula/3个支付网关/Handshakes/Open Corporate/Asia Verify)</td><td>缺少AWS部署技能; 需要更多安全知识</td></tr>
+<tr><td>Duy</td><td>(未填写)</td><td>(未填写)</td></tr>
+</tbody>
+</table>
+
+<div class="eval-block">
+<h5>主管评分依据(82)</h5>
+<p>Ryan给出了<strong>全团队最正面的主管评价之一</strong> &mdash; 7项具体优点，包括代码质量好、被提升管理产品、多客户定制、多供应商集成。仅2项温和技能缺口(AWS/安全)，这是可学习可弥补的。"Promoted to manage Ares product, and he manages it well"直接体现了对他的信任和认可。</p>
+</div>
+</div>
+<hr class="section-divider">
+
+<h3>缺失评价</h3>
+<p>以下成员无自评和主管评价数据:</p>
+<ul>
+<li><strong>Hassan Elseoudy</strong> &mdash; 缺失</li>
+<li><strong>Jing Han Ng</strong> &mdash; 缺失</li>
+<li><strong>Zack Tang</strong> &mdash; 缺失</li>
+<li><strong>Duy Minh Phung</strong> &mdash; 主管(评他人)</li>
+<li><strong>Ryan Zen</strong> &mdash; 主管(评他人)</li>
+</ul>
+
+<hr class="section-divider">
+<h2>七、特别发现与团队洞察</h2>
+
+<h3>经验与表现的匹配/错位</h3>
+<table>
+<thead><tr><th>类型</th><th>成员</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>超越预期</strong></td><td>Gunawan, Thobias, Ngoc Quang</td><td>经验背景一般(28-58), 但实际表现远超预期</td></tr>
+<tr><td><strong>符合预期</strong></td><td>Van Tu Le, Tan Dat Huynh, Ka An Chong</td><td>经验和表现基本匹配</td></tr>
+<tr><td><strong>低于预期</strong></td><td>Hassan, Van Vu Tran</td><td>经验好(65-82), 但产出/效率有问题</td></tr>
+<tr><td><strong>Review形式化</strong></td><td>Ryan Zen(92%橡皮章), Duy Minh Phung(85%), Ka An Chong(1%实质)</td><td>数量大但大部分空approve</td></tr>
+<tr><td><strong>真正认真review</strong></td><td>Jing Han Ng(93%), Gunawan(76%), Tan Dat(46%), Van Vu Tran(40%)</td><td>实际的代码质量守护者</td></tr>
+</tbody>
+</table>
+
+<h3>自评与主管评价的一致性</h3>
+<table>
+<thead><tr><th>类型</th><th>成员</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>自评&asymp;主管</strong></td><td>Gunawan(85/80), Thobias(55/55)</td><td>自我认知准确</td></tr>
+<tr><td><strong>自评>主管</strong></td><td>Ka An Chong(85/60, <strong>差25分</strong>)</td><td>自我认知与外部评价偏差最大</td></tr>
+<tr><td><strong>自评略>主管</strong></td><td>Van Vu Tran(80/70), Van Tu Le(82/72), Huy(82/78)</td><td>轻微偏差, 在正常范围</td></tr>
+</tbody>
+</table>
+
+<h3>主管评价揭示的共性问题</h3>
+<p>两位主管对多个成员提出了<strong>相同类型的负面评价</strong>:</p>
+<ul>
+<li><strong>"过度设计/方案复杂"</strong>: Van Vu Tran, Van Tu Le, Ka An Chong &mdash; 3人被指出方案过于复杂或over-engineered</li>
+<li><strong>"沟通慢/协作少"</strong>: Tan Dat Huynh &mdash; 两位主管一致指出</li>
+<li><strong>"主动性不足"</strong>: Ka An Chong, Huy Vuong Do Thanh &mdash; Ryan对两人都提到"less initiative"</li>
+<li><strong>"仍需指导"</strong>: Thobias, Ka An Chong &mdash; 独立解决问题的能力不够</li>
+</ul>
+
+<h3>流程风险</h3>
+<ul>
+<li><strong>Van Tu Le: 750 commits / 0 PRs</strong> &mdash; 代码未经peer review直接合入, 显著质量风险</li>
+<li><strong>Review半失效</strong>: Ryan(92%)和Duy(85%)的review大部分是橡皮章, 代码审查形同虚设</li>
+<li><strong>Thobias: 101 PRs / 5 reviews</strong> &mdash; 只写不审, 需承担review责任</li>
+</ul>
+
+<h3>团队结构洞察</h3>
+<ul>
+<li><strong>角色层</strong>: Review层(Ryan/Duy/Quang, 名义守门) &rarr; 产出层(Tu/Dat/Huy/Hassan/KaAn, 主力写码) &rarr; 支撑层(Zack, 基础设施)</li>
+<li><strong>新人分化</strong>: Van Tu Le(5个月)commit最多但不走PR; Jing Han Ng(9个月)PR活跃且review质量最高。后者工作方式更可持续</li>
+<li><strong>Hassan的矛盾</strong>: PR合并率95%(代码质量不差), 但Jira P50=41天(任务管理失控)。问题在交付纪律不在代码能力</li>
+</ul>
+
+<div class="footer-note">
+本报告基于Jira + GitHub + 简历 + 自评/主管评价的定量+定性分析。建议结合1-on-1面谈进一步了解定量数据无法反映的因素。
+</div>
+
+</div>
+</body>
+</html>
