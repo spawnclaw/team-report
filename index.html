@@ -72,9 +72,6 @@ table {
   border-collapse: collapse;
   margin: 10px 0 18px;
   font-size: 0.82em;
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 th, td {
   padding: 5px 8px;
@@ -307,8 +304,7 @@ strong { color: #2d2b28; }
 <h3>综合排名</h3>
 <div class="note">自评分、主管分、月薪为参考信息，<strong>不计入综合分，不影响排名</strong>。Duy和Ryan为主管，不被评。月薪单位为SGD（2026年1月数据）。无薪资记录的标记为"离职"。</div>
 
-<div class="tbl-scroll">
-<table>
+<div class="tbl-scroll"><table>
 <thead>
 <tr><th>排名</th><th>姓名</th><th>综合分</th><th>产出</th><th>难度</th><th>效率</th><th>强度</th><th>稳定产出</th><th>简历评估</th><th>代码贡献</th><th>自评</th><th>主管评价</th><th>月薪</th><th>角色定位</th><th>性价比评价</th></tr>
 </thead>
@@ -327,8 +323,7 @@ strong { color: #2d2b28; }
 <tr><td style="color:var(--red);font-weight:600">12</td><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">37.4</strong></td><td style="color:var(--red);font-weight:600">0</td><td style="color:var(--green);font-weight:600">82</td><td style="color:var(--red);font-weight:600">25</td><td style="color:var(--red);font-weight:600">23</td><td style="color:var(--yellow);font-weight:600">50</td><td style="color:var(--green);font-weight:600">82</td><td style="color:var(--red);font-weight:600">18</td><td style="color:var(--green);font-weight:600">80</td><td style="color:var(--green);font-weight:600">70</td><td>3,351</td><td>强背景, 过度设计倾向</td><td><strong>观察期</strong>: 10年经验+3.3K薪资本身不贵, 但月均4.3条(最低)+过度设计, 半年后再评</td></tr>
 <tr><td style="color:var(--red);font-weight:600">13</td><td style="font-weight:700;font-size:0.95em">Hassan Elseoudy</td><td style="background:rgba(0,0,0,0.04)"><strong style="color:var(--red);font-size:1.1em">34.3</strong></td><td style="color:var(--yellow);font-weight:600">48</td><td style="color:var(--yellow);font-weight:600">45</td><td style="color:var(--red);font-weight:600">0</td><td style="color:var(--red);font-weight:600">42</td><td style="color:var(--red);font-weight:600">13</td><td style="color:var(--yellow);font-weight:600">65</td><td style="color:var(--red);font-weight:600">32</td><td>-</td><td>-</td><td>离职</td><td>交付节奏失控</td><td><strong>已离职/走了不亏</strong>: P50=41天(最慢)+P90=245天+积压36条(最多)+月度CV=0.95(最不稳定), 4.5年未建立交付纪律, PR合并率95%说明能写代码但不能按时交付, 入职前每段工作&lt;1年也印证了持续性问题</td></tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 <h3>成员综合评价</h3>
 
@@ -1051,7 +1046,7 @@ strong { color: #2d2b28; }
 <h2>二、评估方法论</h2>
 
 <h3>数据来源</h3>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>来源</th><th>数据量</th><th>涵盖内容</th></tr></thead>
 <tbody>
 <tr><td>Jira</td><td>6648条ticket</td><td>Issue Type, Status, Priority, Assignee, Created, Resolved</td></tr>
@@ -1059,10 +1054,10 @@ strong { color: #2d2b28; }
 <tr><td>简历</td><td>13份</td><td>入职前工作经验, 教育背景, 技术栈, 行业经历</td></tr>
 <tr><td>自评+主管评价</td><td>7份(部分成员缺失)</td><td>自述贡献, 主管正面/负面评价</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <h3>综合分维度与权重</h3>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>维度</th><th>权重</th><th>数据来源</th><th>衡量内容</th></tr></thead>
 <tbody>
 <tr><td>产出量</td><td>18%</td><td>Jira</td><td>月均resolved数</td></tr>
@@ -1073,7 +1068,7 @@ strong { color: #2d2b28; }
 <tr><td>经验背景</td><td>13%</td><td>简历</td><td>入职前年限, 职级, 教育, 技术广度</td></tr>
 <tr><td>代码贡献</td><td>15%</td><td>GitHub</td><td>Commit频率, PR数/合并率, Review数, Repo广度, 代码量</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="note">自评分和主管分<strong>不计入综合分</strong>，作为独立参考维度展示。</div>
 
@@ -1091,8 +1086,7 @@ strong { color: #2d2b28; }
 <h2>三、Jira项目管理分析</h2>
 
 <h3>核心指标</h3>
-<div class="tbl-scroll">
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>姓名</th><th>总任务</th><th>已完成</th><th>完成率</th><th>月均</th><th>P50(天)</th><th>HF P50</th><th>高优占比</th><th>积压</th><th>任务构成</th><th>CV</th></tr></thead>
 <tbody>
 <tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>167</td><td>164</td><td>98%</td><td>16.0</td><td>3.2</td><td>3.9</td><td>7%</td><td>4</td><td>Task 70%</td><td>0.57</td></tr>
@@ -1109,8 +1103,7 @@ strong { color: #2d2b28; }
 <tr><td style="font-weight:700;font-size:0.95em">Jing Han Ng</td><td>69</td><td>67</td><td>97%</td><td>6.2</td><td>29.9</td><td>2.8</td><td>14%</td><td>6</td><td>Task 43%, Bug 26%</td><td>0.64</td></tr>
 <tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td>56</td><td>46</td><td>82%</td><td>4.3</td><td>30.8</td><td>2.0</td><td>36%</td><td>18</td><td>Feature 38%</td><td>0.35</td></tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 <h3>Jira发现</h3>
 <ul>
@@ -1125,8 +1118,7 @@ strong { color: #2d2b28; }
 <h2>四、GitHub代码贡献分析</h2>
 
 <h3>核心指标</h3>
-<div class="tbl-scroll">
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>姓名</th><th>Commits</th><th>Repos</th><th>PRs</th><th>Merged</th><th>合并率</th><th>PR增行</th><th>Reviews</th><th>GitHub分</th></tr></thead>
 <tbody>
 <tr><td style="font-weight:700;font-size:0.95em">Van Tu Le</td><td>750</td><td>4</td><td>0</td><td>0</td><td>-</td><td>-</td><td>0</td><td>26.8</td></tr>
@@ -1143,12 +1135,10 @@ strong { color: #2d2b28; }
 <tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td>268</td><td>2</td><td>71</td><td>58</td><td>82%</td><td>32K</td><td>85</td><td>18.2</td></tr>
 <tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>115</td><td>8</td><td>9</td><td>9</td><td>100%</td><td>8K</td><td>2</td><td>7.3</td></tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 <h3>Repo贡献分布</h3>
-<div class="tbl-scroll">
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>姓名</th><th>Artemis3.0</th><th>Athena</th><th>KYCOnboarding</th><th>Microservices</th><th>Deployer</th><th>ArtemiScan</th><th>其他</th></tr></thead>
 <tbody>
 <tr><td style="font-weight:700;font-size:0.95em">Van Tu Le</td><td><strong>700</strong></td><td></td><td>8</td><td>32</td><td></td><td></td><td>10</td></tr>
@@ -1165,12 +1155,10 @@ strong { color: #2d2b28; }
 <tr><td style="font-weight:700;font-size:0.95em">Van Vu Tran</td><td><strong>232</strong></td><td></td><td>36</td><td></td><td></td><td></td><td></td></tr>
 <tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>1</td><td></td><td>4</td><td></td><td><strong>40</strong></td><td>2</td><td>68</td></tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 <h3>Code Review质量</h3>
-<div class="tbl-scroll">
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>Reviewer</th><th>总Reviews</th><th>空Approve</th><th>橡皮章率</th><th>CHANGES_REQ</th><th>实质内容</th><th>实质率</th></tr></thead>
 <tbody>
 <tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>339</td><td>311</td><td><strong>92%</strong></td><td>4</td><td>23</td><td><strong>7%</strong></td></tr>
@@ -1184,8 +1172,7 @@ strong { color: #2d2b28; }
 <tr><td style="font-weight:700;font-size:0.95em">Gunawan Swandono</td><td>25</td><td>2</td><td>8%</td><td>0</td><td>19</td><td><strong>76%</strong></td></tr>
 <tr><td style="font-weight:700;font-size:0.95em">Tan Dat Huynh</td><td>24</td><td>1</td><td>4%</td><td>0</td><td>11</td><td>46%</td></tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 <div class="note"><strong>橡皮章</strong> = Approve但body为空(未留任何评论)。<strong>实质率</strong> = (CHANGES_REQUESTED + 有内容的COMMENTED/APPROVED) / 总reviews。</div>
 
@@ -1203,7 +1190,7 @@ strong { color: #2d2b28; }
 <h2>五、简历经验背景评估</h2>
 
 <h3>评分标准</h3>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>分数段</th><th>含义</th></tr></thead>
 <tbody>
 <tr><td>85-100</td><td>资深: 10年+, Tech Lead/架构角色, 深厚行业相关度</td></tr>
@@ -1211,11 +1198,10 @@ strong { color: #2d2b28; }
 <tr><td>45-64</td><td>中级: 有正式工作经验, 但深度或广度有限</td></tr>
 <tr><td>25-44</td><td>初中级: 转行、应届或经验不足</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <h3>各成员简历摘要</h3>
-<div class="tbl-scroll">
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>姓名</th><th>经验分</th><th>总经验</th><th>学历</th><th>入职前最高职级</th><th>在公司</th><th>背景关键词</th></tr></thead>
 <tbody>
 <tr><td style="font-weight:700;font-size:0.95em">Ryan Zen</td><td>92</td><td>20年+</td><td>Master(RMIT)</td><td>Technical Lead</td><td>3.7年</td><td>游戏(80K RPM)&rarr;金融(DBS chatbot)&rarr;KYC, ISO-27001</td></tr>
@@ -1232,8 +1218,7 @@ strong { color: #2d2b28; }
 <tr><td style="font-weight:700;font-size:0.95em">Zack Tang</td><td>42</td><td>4年+(软件)</td><td>BSc EE(TU Munich)+Bootcamp</td><td>Software Engineer(转行)</td><td>5年</td><td>电气工程转行, 12周bootcamp, DevOps/基础设施</td></tr>
 <tr><td style="font-weight:700;font-size:0.95em">Thobias Pieter</td><td>28</td><td>0年</td><td>Bachelor BIS(Wollongong)</td><td>无</td><td>3.3年</td><td>应届毕业生, 只有学术项目</td></tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 <hr class="section-divider">
 <h2>六、自评与主管评价</h2>
@@ -1272,13 +1257,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Duy</td><td>Java Spring Boot & Python & DevOps全面; 好沟通好态度; 愿意学新东西</td><td>方案有时只修具体case, 不考虑整体系统设计</td></tr>
 <tr><td>Ryan</td><td>端到端理解Artemis和CRM; 能搭建A3/CRM服务器; 解决复杂问题(race condition/slow query); 安全修改数据库结构; 团队精神好; 能做code review; 能做DevOps/SRE</td><td>需要更多复杂问题的经验</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(80)</h5>
@@ -1298,13 +1283,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Duy</td><td>Java Spring Boot能力好; 愿意在不同角色学习新东西</td><td>方案需要简化, 有时过度设计导致难以review</td></tr>
 <tr><td>Ryan</td><td>Java经验; 理解REST API/Message Queue/Async; 能优化数据库性能; 团队精神好</td><td>FE框架(Angular/React)经验不足; 英语沟通不够自信</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(72)</h5>
@@ -1324,13 +1309,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Duy</td><td>持续维护老系统(Artemis 1/2, IRIS); Python能力好</td><td>沟通回复慢; 对团队贡献少</td></tr>
 <tr><td>Ryan</td><td>独立解决问题; 独立维护30个制裁名单的爬虫; 管理8-10个微服务; 掌握多语言多产品含遗留代码; 理解Message Queue和认证</td><td>沟通慢; 团队协作少; 独自工作(silo)</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(55)</h5>
@@ -1350,13 +1335,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Ryan</td><td>Python后端(Artemis 2/Athena); 能维护和管理Athena含部署; 能处理生产查询(SRE); Docker本地部署(Django/Nginx/Angular)</td><td>开发速度偏慢; 主动性不足; 有时需要指导</td></tr>
 <tr><td>Duy</td><td>态度好, 有支持意识</td><td>N/A</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(60)</h5>
@@ -1376,13 +1361,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Duy</td><td>前端能力好(ReactJS/Angular); Artemis 3.0前端贡献大</td><td>方案需改进(只修具体case不考虑整体设计); 后端上手慢</td></tr>
 <tr><td>Ryan</td><td>主要做FE变更含i18n; 正在熟悉Java SpringBoot; 沟通好态度好</td><td>仍然junior和年轻; 需要解决问题方面的指导</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(55)</h5>
@@ -1402,13 +1387,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Ryan</td><td>FE框架精通(Angular/React/i18n); 代码易读; 能管理和建议FE结构性变更; 好团队精神和沟通; 能帮助同事解决FE问题和分享最佳实践</td><td>主动性不足; BE和DevOps经验少</td></tr>
 <tr><td>Duy</td><td>沟通好; 前端专家; 对自己的代码和方案负责</td><td>(无)</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(78)</h5>
@@ -1428,13 +1413,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Duy</td><td>问题分析和解决能力好; 对自己提议的代码非常负责; 总是追求最优方案; Java Spring Boot好</td><td>有时会想"1000年后才会出现的问题", 导致交付延迟</td></tr>
 <tr><td>Ryan</td><td>能为安全问题和业务功能提供方案; Java经验; 理解REST API/Message Queue/Async</td><td>方案过于追求最优, 导致过度设计(over-engineered)</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(70)</h5>
@@ -1454,13 +1439,13 @@ strong { color: #2d2b28; }
 </div>
 
 <p><strong>主管评价:</strong></p>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>评价者</th><th>正面</th><th>负面</th></tr></thead>
 <tbody>
 <tr><td>Ryan</td><td>能为Artemis 3提出好方案; 能与产品经理合作按规格构建产品; 代码质量好且干净; 被提升管理Ares产品，管理得好; 为多个客户做重度定制(Nigerian Bank/Green Link Digital Bank); 态度好沟通好; 集成多个第三方(Veriff/Regula/3个支付网关/Handshakes/Open Corporate/Asia Verify)</td><td>缺少AWS部署技能; 需要更多安全知识</td></tr>
 <tr><td>Duy</td><td>(未填写)</td><td>(未填写)</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="eval-block">
 <h5>主管评分依据(82)</h5>
@@ -1483,7 +1468,7 @@ strong { color: #2d2b28; }
 <h2>七、特别发现与团队洞察</h2>
 
 <h3>经验与表现的匹配/错位</h3>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>类型</th><th>成员</th><th>说明</th></tr></thead>
 <tbody>
 <tr><td><strong>超越预期</strong></td><td>Gunawan, Thobias, Ngoc Quang</td><td>经验背景一般(28-58), 但实际表现远超预期</td></tr>
@@ -1492,17 +1477,17 @@ strong { color: #2d2b28; }
 <tr><td><strong>Review形式化</strong></td><td>Ryan Zen(92%橡皮章), Duy Minh Phung(85%), Ka An Chong(1%实质)</td><td>数量大但大部分空approve</td></tr>
 <tr><td><strong>真正认真review</strong></td><td>Jing Han Ng(93%), Gunawan(76%), Tan Dat(46%), Van Vu Tran(40%)</td><td>实际的代码质量守护者</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <h3>自评与主管评价的一致性</h3>
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>类型</th><th>成员</th><th>说明</th></tr></thead>
 <tbody>
 <tr><td><strong>自评&asymp;主管</strong></td><td>Gunawan(85/80), Thobias(55/55)</td><td>自我认知准确</td></tr>
 <tr><td><strong>自评>主管</strong></td><td>Ka An Chong(85/60, <strong>差25分</strong>)</td><td>自我认知与外部评价偏差最大</td></tr>
 <tr><td><strong>自评略>主管</strong></td><td>Van Vu Tran(80/70), Van Tu Le(82/72), Huy(82/78)</td><td>轻微偏差, 在正常范围</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <h3>主管评价揭示的共性问题</h3>
 <p>两位主管对多个成员提出了<strong>相同类型的负面评价</strong>:</p>
